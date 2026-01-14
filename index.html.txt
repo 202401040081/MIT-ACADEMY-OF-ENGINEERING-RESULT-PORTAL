@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MIT ACADEMY RESULT PORTAL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { margin:0; font-family: "Segoe UI", Arial, sans-serif; background:#f3f5f7; }
+    header { background:#003366; color:white; padding:15px; text-align:center; }
+    header h1 { margin:0; font-size:22px; }
+    header p { margin:5px 0 0; font-size:14px; }
+
+    .container { max-width:900px; margin:30px auto; background:white; box-shadow:0 0 10px rgba(0,0,0,0.15); }
+
+    .login-box { padding:30px; }
+    .login-box h2 { text-align:center; color:#003366; }
+    .login-box input { width:100%; padding:10px; margin:10px 0; font-size:15px; }
+    .login-box button { width:100%; padding:10px; background:#003366; color:white; border:none; font-size:16px; cursor:pointer; }
+    .login-box button:hover { background:#002244; }
+    .error { color:red; text-align:center; }
+
+    .result-box { padding:30px; display:none; }
+    .student-info { border:1px solid #ccc; padding:15px; margin-bottom:20px; }
+    .student-info p { margin:5px 0; }
+
+    select { padding:10px; font-size:15px; width:250px; }
+
+    table { width:100%; border-collapse:collapse; margin-top:15px; }
+    th, td { border:1px solid #999; padding:8px; text-align:center; }
+    th { background:#e6eef7; }
+
+    .actions { margin-top:20px; }
+    .actions button { padding:10px 15px; background:#003366; color:white; border:none; cursor:pointer; }
+
+    footer { text-align:center; padding:10px; font-size:13px; background:#e6e6e6; }
+
+    @media (max-width:600px) {
+      .container { margin:10px; }
+      header h1 { font-size:18px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>MIT ACADEMY OF ENGINEERING</h1>
+  <p>Result Portal</p>
+</header>
+
+<div class="container">
+
+  <div class="login-box" id="loginBox">
+    <h2>Student Login</h2>
+    <input type="text" id="prn" placeholder="Enter PRN" />
+    <input type="password" id="password" placeholder="Enter Password" />
+    <button onclick="login()">Login</button>
+    <p class="error" id="errorMsg"></p>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <h2 style="color:#003366">Student Result</h2>
+
+    <div class="student-info">
+      <p><strong>Name:</strong> Ritesh Paul</p>
+      <p><strong>PRN:</strong> 202401040081</p>
+      <p><strong>Department:</strong> Computer Engineering</p>
+      <p><strong>Institute:</strong> MIT Academy of Engineering</p>
+    </div>
+
+    <label><strong>Select Semester:</strong></label><br><br>
+    <select id="semester" onchange="showResult()">
+      <option value="">-- Select --</option>
+      <option value="1">Semester I</option>
+      <option value="2">Semester II</option>
+      <option value="3">Semester III</option>
+    </select>
+
+    <div id="semResult"></div>
+
+    <div class="actions">
+      <button onclick="window.print()">Print / Download PDF</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © MIT Academy of Engineering | For Academic Use Only
+</footer>
+
+<script>
+  function login() {
+    const prn = document.getElementById('prn').value;
+    const password = document.getElementById('password').value;
+
+    if ((prn === '202401040081' && password === '8857873969') ||
+        (prn === '202401040179' && password === '9028090297')) {
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('resultBox').style.display = 'block';
+    } else {
+      document.getElementById('errorMsg').innerText = 'Wrong credentials';
+    }
+  }
+
+  function showResult() {
+    const sem = document.getElementById('semester').value;
+    let html = '';
+
+    if (sem === '1') {
+      html = `<h3>Semester I Result</h3>
+      <table>
+        <tr><th>Subject</th><th>Marks</th></tr>
+        <tr><td>Engineering Mathematics</td><td>85</td></tr>
+        <tr><td>Engineering Physics</td><td>78</td></tr>
+        <tr><td>Programming in C</td><td>88</td></tr>
+      </table>
+      <p><strong>SGPA:</strong> 8.5 &nbsp;&nbsp; <strong>Status:</strong> PASS</p>`;
+    }
+
+    if (sem === '2') {
+      html = `<h3>Semester II Result</h3>
+      <table>
+        <tr><th>Subject</th><th>Marks</th></tr>
+        <tr><td>Data Structures</td><td>82</td></tr>
+        <tr><td>OOP using C++</td><td>80</td></tr>
+        <tr><td>Discrete Mathematics</td><td>76</td></tr>
+      </table>
+      <p><strong>SGPA:</strong> 8.1 &nbsp;&nbsp; <strong>Status:</strong> PASS</p>`;
+    }
+
+    if (sem === '3') {
+      html = `<h3>Semester III Result</h3>
+      <table>
+        <tr><th>Subject</th><th>Marks</th></tr>
+        <tr><td>DBMS</td><td>84</td></tr>
+        <tr><td>Operating Systems</td><td>79</td></tr>
+        <tr><td>Computer Networks</td><td>81</td></tr>
+      </table>
+      <p><strong>SGPA:</strong> 8.3 &nbsp;&nbsp; <strong>Status:</strong> PASS</p>`;
+    }
+
+    document.getElementById('semResult').innerHTML = html;
+  }
+</script>
+
+</body>
+</html>
